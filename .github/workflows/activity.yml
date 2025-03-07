@@ -19,6 +19,8 @@ jobs:
           echo "$(date)" >> activity.log
 
       - name: Commit and push changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "ravi-rajpurohit-gh"
           git config --global user.email "ravirajpurohit414@gmail.com"
