@@ -1,0 +1,28 @@
+name: GitHub Activity Automation
+
+on:
+  schedule:
+    - cron: "0 20 * * *"  # Runs daily at 8 PM UTC
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Modify file
+        run: |
+          echo "$(date)" >> activity.log
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "ravi-rajpurohit-gh"
+          git config --global user.email "ravirajpurohit414@gmail.com"
+          git add activity.log
+          git commit -m "Automated commit on $(date)" || exit 0  # Avoid failure if no changes
+          git push
+
+
+
