@@ -2,7 +2,7 @@ name: GitHub Activity Automation
 
 on:
   schedule:
-    - cron: "0 3 * * *" # Runs daily at 3 AM UTC, 10 PM EST
+    - cron: "0 1 * * *" # Runs daily at 1 AM UTC, 8 PM EST
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }} # Use the token for authentication
 
       - name: Modify file
         run: |
