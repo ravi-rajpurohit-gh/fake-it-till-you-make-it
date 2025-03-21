@@ -1,10 +1,10 @@
 # fake-it-till-you-make-it
 
-This project automates Git commits and pushes using **GitHub Actions**, ensuring that your GitHub profile remains active by making daily commits. This can help simulate developer activity on your profile.
+This project automates Git commits and pushes using **GitHub Actions**, ensuring that your GitHub profile remains active by making daily commits. The number of commits per day varies randomly between **0 and 8**, making the activity appear more natural.
 
 ## Features
 
-- **Automated Daily Commits**: Updates a log file with the current date every day.
+- **Randomized Daily Commits**: Generates between **0 to 8 commits** per day.
 - **Uses GitHub Actions**: Runs without needing your local machine.
 - **Customizable Schedule**: Modify the cron job to adjust commit frequency.
 
@@ -43,7 +43,7 @@ Modify the schedule as needed:
 
 ```yaml
 schedule:
-  - cron: "0 12 * * *" # Runs daily at 12 PM UTC
+  - cron: "0 1 * * *" # Runs daily at 1 AM UTC / 8 PM EST
 ```
 
 To trigger manually, go to **Actions tab → Select workflow → Run workflow**.
@@ -58,12 +58,15 @@ git push origin main
 
 ## ✅ How It Works
 
-- The workflow runs daily and appends the current date to `activity.log`.
-- It commits and pushes the change using the provided GitHub token.
-- This keeps your GitHub profile active with automated commits.
+- The workflow runs daily and randomly decides how many commits (0-9) to make.
+- Each commit updates `activity.log` with the current timestamp.
+- It commits and pushes the changes using the provided GitHub token.
+- This keeps your GitHub profile active in a **natural and random** way.
 
 ## 🔧 Customization
 
 - **Adjust the commit frequency**: Modify the `cron` schedule in `activity.yml`.
 - **Modify commit messages**: Change the commit message inside the workflow file.
 - **Commit different files**: Instead of `activity.log`, modify other files.
+
+🚀 **Stay active on GitHub effortlessly!**

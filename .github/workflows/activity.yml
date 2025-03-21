@@ -14,16 +14,20 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }} # Use the token for authentication
 
-      - name: Modify file
-        run: |
-          echo "$(date)" >> activity.log
-
       - name: Commit and push changes
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config --global user.name "ravi-rajpurohit-gh"
-          git config --global user.email "ravirajpurohit414@gmail.com"
-          git add activity.log
-          git commit -m "Automated commit on $(date)" || exit 0  # Avoid failure if no changes
-          git push
+          # Generate random count between 0 and 9
+          COMMIT_COUNT=$((RANDOM % 10))
+          # do not commit for (0,1), commit for (2,3,4,5,6,7,8,9)
+          for ((i=2; i<=COMMIT_COUNT; i++)); do
+            echo "$(date) - Commit $i" >> activity.log
+            git add activity.log
+            git commit -m "Automated commit $i on $(date)"
+          done
+
+          # Push only if at least one commit was made
+          if [ "$COMMIT_COUNT" -gt 0 ]; then
+            git push
+          fi
