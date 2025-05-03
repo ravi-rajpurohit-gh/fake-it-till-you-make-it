@@ -21,16 +21,16 @@ jobs:
           # set git credentials
           git config user.name "ravi-rajpurohit-gh"
           git config user.email "ravirajpurohit414@gmail.com"
-          # Generate random count between 0 and 9
-          COMMIT_COUNT=$((RANDOM % 10))
-          # do not commit for (0,1), commit for (2,3,4,5,6,7,8,9)
+          # Generate random count between 0 and 3
+          COMMIT_COUNT=$((RANDOM % 4))
+          # do not commit for (0,1), commit for (2,3)
           for ((i=2; i<=COMMIT_COUNT; i++)); do
             echo "$(date) - Commit $i" >> activity.log
             git add activity.log
             git commit -m "Automated commit $i on $(date)"
           done
 
-          # Push only if at least one commit was made
-          if [ "$COMMIT_COUNT" -gt 0 ]; then
+          # Push only if at least two commits were made
+          if [ "$COMMIT_COUNT" -gt 1 ]; then
             git push
           fi
